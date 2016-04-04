@@ -3,31 +3,33 @@
 var _ = require('lodash');
 var chai = require('chai');
 var GogoShell = require('gogo-shell');
-var helper = require('../index');
+var GogoShellHelper = require('../index');
 
 var assert = chai.assert;
 
 describe('gogo-shell-helper', function() {
-	var server;
+	var helper;
 
 	before(function() {
-		server = helper.startServer(null, [
-			{
-				command: 'test',
-				response: 'test'
-			},
-			{
-				command: 'install',
-				multiResponse: ['1', '2', '3']
-			},
-			{
-				command: 'install webbundledir'
-			}
-		]);
+		helper = GogoShellHelper.start({
+			dummyData: [
+				{
+					command: 'test',
+					response: 'test'
+				},
+				{
+					command: 'install',
+					multiResponse: ['1', '2', '3']
+				},
+				{
+					command: 'install webbundledir'
+				}
+			]
+		});
 	});
 
 	after(function() {
-		server.close();
+		helper.close();
 	});
 
 	describe('startServer', function() {
