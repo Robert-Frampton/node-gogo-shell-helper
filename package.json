@@ -1,0 +1,33 @@
+{
+  "name": "gogo-shell-helper",
+  "version": "0.0.0",
+  "description": "Helpers for testing gogo-shell telnet connections and implementations of gogo-shell",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Robert-Frampton/node-gogo-shell-helper"
+  },
+  "keywords": [
+    "gogo",
+    "osgi",
+    "test"
+  ],
+  "author": "Rob Frampton <rob.g.frampton@gmail.com> (https://github.com/Robert-Frampton)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Robert-Frampton/node-gogo-shell-helper/issues"
+  },
+  "homepage": "https://github.com/Robert-Frampton/node-gogo-shell-helper",
+  "dependencies": {
+    "lodash": "^4.7.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "gogo-shell": "0.0.5",
+    "gulp": "^3.9.1",
+    "gulp-mocha": "^2.2.0"
+  }
+}
