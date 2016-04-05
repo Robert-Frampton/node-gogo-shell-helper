@@ -21,29 +21,29 @@ GogoShellHelper.prototype = {
 	init: function(config) {
 		config = config || {};
 
-		this._validateDummyArray(config.dummyData);
+		this._validateCommands(config.commands);
 
-		this.dummyData = config.dummyData;
+		this.commands = config.commands;
 		this.host = config.host || '0.0.0.0';
 		this.port = config.port || 1337;
 
 		this._startServer();
 	},
 
-	addDummyCommand: function(data) {
-		this._validateDummyCommand(data);
+	addCommand: function(data) {
+		this._validateCommand(data);
 
-		this.dummyData.push(data);
+		this.commands.push(data);
 	},
 
 	close: function() {
 		this.gogoServer.close();
 	},
 
-	setDummyData: function(data) {
-		this._validateDummyArray(data);
+	setCommands: function(data) {
+		this._validateCommands(data);
 
-		this.dummyData = data;
+		this.commands = data;
 	},
 
 	_startServer: function() {
@@ -63,9 +63,9 @@ GogoShellHelper.prototype = {
 					}, 100);
 				}
 				else {
-					var dummyCommand = instance._writeResponse(socket, data);
+					var command = instance._writeResponse(socket, data);
 
-					if (!dummyCommand) {
+					if (!command) {
 						socket.write(DEFAULT_RESPONSE_DATA);
 					}
 				}
@@ -79,23 +79,23 @@ GogoShellHelper.prototype = {
 		return gogoServer;
 	},
 
-	_validateDummyArray: function(data) {
-		if (!_.isArray(data)) {
-			throw new Error('dummy command must be an array of objects');
-		}
-		else {
-			_.forEach(data, this._validateDummyCommand);
+	_validateCommand: function(data) {
+		if (!_.isObject(data) || !data.command) {
+			throw new Error('command must be an object and have command property');
 		}
 	},
 
-	_validateDummyCommand: function(data) {
-		if (!_.isObject(data) || !data.command) {
-			throw new Error('dummy command must be an object and have command property');
+	_validateCommands: function(data) {
+		if (!_.isArray(data)) {
+			throw new Error('commands must be an array of objects');
+		}
+		else {
+			_.forEach(data, this._validateCommand);
 		}
 	},
 
 	_writeResponse: function(socket, data) {
-		return _.forEach(this.dummyData, function(item, index) {
+		return _.forEach(this.commands, function(item, index) {
 			var command = item.command;
 
 			if (_.startsWith(data, command)) {

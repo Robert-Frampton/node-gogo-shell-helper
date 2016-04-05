@@ -12,7 +12,7 @@ describe('gogo-shell-helper', function() {
 
 	before(function() {
 		helper = GogoShellHelper.start({
-			dummyData: [
+			commands: [
 				{
 					command: 'test',
 					response: 'test'
