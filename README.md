@@ -10,24 +10,25 @@ $ npm install --save-dev gogo-shell-helper
 
 ```js
 var gogoShell = require('gogo-shell');
-var helper = require('gogo-shell-helper');
+var GogoShellHelper = require('gogo-shell-helper');
 
-var server = helper.startServer({
+var helper = GogoShellHelper.start({
     // host: '0.0.0.0',
-    // port: 1337
-}, [
-    {
-        command: 'test',
-        response: 'response'
-    },
-    {
-        command: 'multi',
-        multiResponse: ['response1', 'response2']
-    },
-    {
-        command: 'returns this command'
-    }
-]);
+    // port: 1337,
+    commands: [
+        {
+            command: 'test',
+            response: 'response'
+        },
+        {
+            command: 'multi',
+            multiResponse: ['response1', 'response2']
+        },
+        {
+            command: 'returns this command'
+        }
+    ]
+});
 
 var gogoShell = new GogoShell();
 
@@ -41,18 +42,65 @@ gogoShell.connect(config)
         return gogoShell.sendCommand('test');
     })
     .then(function(data) {
-        // data = 'response'
+        // data = 'response\ng!'
 
         return gogoShell.sendCommand('multi');
     })
     .then(function(data) {
-        // data = 'response1response1'
+        // data = 'response1response1\ng!'
 
         return gogoShell.sendCommand('returns this command option --flag');
     })
     .then(function(data) {
-        // data = 'returns this command option --flag'
+        // data = 'returns this command option --flag\ng!'
 
         gogoShell.destroy();
     });
 ```
+
+## API
+
+### start(config)
+
+#### config
+
+type: `object`
+
+##### config.commands
+
+type: `array`
+
+An array of objects containing mock commands
+
+```js
+commands: [
+    {
+        command: 'test',
+        response: 'response'
+    }
+]
+```
+
+If `response` is omitted, it will return the `command` value. `multiResponse` is intended for an array of values that will be joined and returned.
+
+##### config.host
+
+type: `string`
+
+##### config.port
+
+type: `string`
+
+### setCommands(commands)
+
+#### commands
+
+type: `array`
+
+Overwrites the `commands` property set in the constructor.
+
+### addCommand(command)
+
+type: `object`
+
+Adds command to `commands` array.

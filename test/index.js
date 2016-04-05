@@ -32,7 +32,7 @@ describe('gogo-shell-helper', function() {
 		helper.close();
 	});
 
-	describe('startServer', function() {
+	describe('start', function() {
 		it('should connect to server', function(done) {
 			var gogoShell = new GogoShell();
 
@@ -51,7 +51,7 @@ describe('gogo-shell-helper', function() {
 		});
 	});
 
-	describe('writeResponse', function() {
+	describe('_writeResponse', function() {
 		it('should return dummy responses', function(done) {
 			var gogoShell = new GogoShell();
 
