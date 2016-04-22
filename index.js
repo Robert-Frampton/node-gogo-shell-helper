@@ -66,7 +66,7 @@ GogoShellHelper.prototype = {
 					var command = instance._writeResponse(socket, data);
 
 					if (!command) {
-						socket.write(DEFAULT_RESPONSE_DATA);
+						socket.write(data + COMMAND_END);
 					}
 				}
 			});
@@ -95,7 +95,7 @@ GogoShellHelper.prototype = {
 	},
 
 	_writeResponse: function(socket, data) {
-		return _.forEach(this.commands, function(item, index) {
+		return _.some(this.commands, function(item, index) {
 			var command = item.command;
 
 			if (_.startsWith(data, command)) {

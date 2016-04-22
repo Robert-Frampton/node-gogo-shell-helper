@@ -18,11 +18,11 @@ describe('gogo-shell-helper', function() {
 					response: 'test'
 				},
 				{
-					command: 'install',
-					multiResponse: ['1', '2', '3']
+					command: 'install webbundledir'
 				},
 				{
-					command: 'install webbundledir'
+					command: 'install',
+					multiResponse: ['1', '2', '3']
 				}
 			]
 		});
@@ -108,6 +108,33 @@ describe('gogo-shell-helper', function() {
 				})
 				.then(function(data) {
 					assert(data.indexOf('install webbundledir:file://test/test.war') > -1);
+
+					gogoShell.destroy();
+
+					done();
+				});
+		});
+
+		it('should return received command if command does not exists', function(done) {
+			var gogoShell = new GogoShell();
+
+			var config = {
+				host: '0.0.0.0',
+				port: 1337
+			};
+
+			helper.setCommands([
+				{
+					command: 'test'
+				}
+			]);
+
+			gogoShell.connect(config)
+				.then(function() {
+					return gogoShell.sendCommand('command that does not exist');
+				})
+				.then(function(data) {
+					assert(data.indexOf('command that does not exist') > -1);
 
 					gogoShell.destroy();
 
