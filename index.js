@@ -99,7 +99,9 @@ GogoShellHelper.prototype = {
 			var command = item.command;
 
 			if (_.startsWith(data, command)) {
-				var response = item.response || item.multiResponse || data;
+				var response = item.response || item.multiResponse || '';
+
+				socket.write(data + '\n');
 
 				if (_.isArray(response)) {
 					_.forEach(response, function(chunk, index) {
