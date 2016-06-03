@@ -101,7 +101,7 @@ GogoShellHelper.prototype = {
 			if (_.startsWith(data, command)) {
 				var response = item.response || item.multiResponse || '';
 
-				socket.write(data + '\n');
+				socket.write(data);
 
 				if (_.isArray(response)) {
 					_.forEach(response, function(chunk, index) {
