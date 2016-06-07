@@ -36,8 +36,8 @@ GogoShellHelper.prototype = {
 		this.commands.push(data);
 	},
 
-	close: function() {
-		this.gogoServer.close();
+	close: function(cb) {
+		this.gogoServer.close(cb);
 	},
 
 	setCommands: function(data) {
