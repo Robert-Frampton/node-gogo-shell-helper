@@ -27,6 +27,8 @@ GogoShellHelper.prototype = {
 		this.host = config.host || '0.0.0.0';
 		this.port = config.port || 1337;
 
+		this.sockets = [];
+
 		this._startServer();
 	},
 
@@ -37,6 +39,12 @@ GogoShellHelper.prototype = {
 	},
 
 	close: function(cb) {
+		_.forEach(this.sockets, function(socket, index) {
+			socket.destroy();
+		});
+
+		this.sockets = [];
+
 		this.gogoServer.close(cb);
 	},
 
@@ -52,6 +60,8 @@ GogoShellHelper.prototype = {
 		var gogoServer = net.createServer({
 			allowHalfOpen: true
 		}, function(socket) {
+			instance.sockets.push(socket);
+
 			socket.on('data', function(data) {
 				data = data.toString();
 
