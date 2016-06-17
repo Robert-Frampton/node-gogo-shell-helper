@@ -1,6 +1,6 @@
 {
   "name": "gogo-shell-helper",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Helpers for testing gogo-shell telnet connections and implementations of gogo-shell",
   "main": "index.js",
   "scripts": {
